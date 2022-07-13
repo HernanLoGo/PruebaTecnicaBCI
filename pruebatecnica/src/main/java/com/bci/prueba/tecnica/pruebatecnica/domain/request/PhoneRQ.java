@@ -11,7 +11,7 @@ public class PhoneRQ implements Serializable {
 	@JsonProperty("number")
 	private String number;
 	
-	@JsonProperty("phones")
+	@JsonProperty("citycode")
 	private String cityCode;
 	
 	@JsonProperty("contrycode")

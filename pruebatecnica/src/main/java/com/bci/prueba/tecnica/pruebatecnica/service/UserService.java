@@ -8,14 +8,14 @@ import com.bci.prueba.tecnica.pruebatecnica.exceptions.UserException;
 
 public interface UserService {
 
-	UserListRS getAll();
+	UserListRS getAll() throws UserException;
 
-	UserRS getByEmail(String email);
+	UserRS getByEmail(String email) throws UserException;
 
-	ProcessRS save(UserRQ user) throws UserException;
+	ProcessRS save(UserRQ userRq) throws UserException;
 
 	ProcessRS delete(String email);
 
-	ProcessRS update(UserRQ user);
+	ProcessRS update(UserRQ userRq);
 
 }

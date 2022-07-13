@@ -44,7 +44,10 @@ public class UserController {
 		try {
 			userListRS = userSvc.getAll();
 			response = new ResponseEntity<>(userListRS, HttpStatus.OK);
-		
+		}catch (UserException e) {
+			log.error(e.getMessage());
+			userListRS = new UserListRS(e.getMessage());
+			response = new ResponseEntity<>(userListRS, HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			userListRS = new UserListRS(Constant.ERROR_INTERNO_DEFAULT);
@@ -64,6 +67,10 @@ public class UserController {
 		try {
 			userRS = userSvc.getByEmail(email);
 			response = new ResponseEntity<>(userRS, HttpStatus.OK);
+		}catch (UserException e) {
+			log.error(e.getMessage());
+			userRS = new UserRS(e.getMessage());
+			response = new ResponseEntity<>(userRS, HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			userRS = new UserRS(Constant.ERROR_INTERNO_DEFAULT);

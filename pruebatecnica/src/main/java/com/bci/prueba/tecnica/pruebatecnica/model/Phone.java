@@ -25,13 +25,13 @@ public class Phone implements Serializable {
 	private Long idPhone;
 
 	@Column(name = "number", length = 11, nullable = false)
-	private Integer number;
+	private String number;
 
 	@Column(name = "citycode", length = 5, nullable = false)
-	private Integer citycode;
+	private String citycode;
 
 	@Column(name = "contrycode", length = 8, nullable = false)
-	private Integer contrycode;
+	private String contrycode;
 
 	@ManyToOne
 	@JoinColumn(name = "idUser")
@@ -45,27 +45,27 @@ public class Phone implements Serializable {
 		this.idPhone = idPhone;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public Integer getCitycode() {
+	public String getCitycode() {
 		return citycode;
 	}
 
-	public void setCitycode(Integer citycode) {
+	public void setCitycode(String citycode) {
 		this.citycode = citycode;
 	}
 
-	public Integer getContrycode() {
+	public String getContrycode() {
 		return contrycode;
 	}
 
-	public void setContrycode(Integer contrycode) {
+	public void setContrycode(String contrycode) {
 		this.contrycode = contrycode;
 	}
 
