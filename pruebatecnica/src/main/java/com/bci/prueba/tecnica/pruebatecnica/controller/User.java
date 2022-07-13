@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,7 @@ public class User {
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ProcessRS> save(@RequestBody UserRQ rq) {
-		log.info("[INIT][insertUser]");
+		log.info("[INIT][save]");
 		log.info("[PARAMS] " + rq);
 
 		ResponseEntity<ProcessRS> response = null;
@@ -85,11 +86,11 @@ public class User {
 			processRS.setMensaje("Error interno, intente más tarde");
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		log.info("[END][insertUser]");
+		log.info("[END][save]");
 		return response;
 	}
 
-	@DeleteMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@DeleteMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ProcessRS> delete(@NotNull @NotBlank @RequestParam String email) {
 		log.info("[INIT][delete]");
 		log.info("[PARAMS] " + email);
@@ -105,6 +106,25 @@ public class User {
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][delete]");
+		return response;
+	}
+
+	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<ProcessRS> update(@RequestBody UserRQ rq) {
+		log.info("[INIT][update]");
+		log.info("[PARAMS] " + rq);
+
+		ResponseEntity<ProcessRS> response = null;
+		ProcessRS processRS = new ProcessRS();
+		try {
+
+			response = new ResponseEntity<>(processRS, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			processRS.setMensaje("Error interno, intente más tarde");
+			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		log.info("[END][update]");
 		return response;
 	}
 }
