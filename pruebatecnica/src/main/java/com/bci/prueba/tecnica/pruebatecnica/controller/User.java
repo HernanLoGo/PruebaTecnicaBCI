@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,4 +89,22 @@ public class User {
 		return response;
 	}
 
+	@DeleteMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<ProcessRS> delete(@NotNull @NotBlank @RequestParam String email) {
+		log.info("[INIT][delete]");
+		log.info("[PARAMS] " + email);
+
+		ResponseEntity<ProcessRS> response = null;
+		ProcessRS processRS = new ProcessRS();
+		try {
+
+			response = new ResponseEntity<>(processRS, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			processRS.setMensaje("Error interno, intente más tarde");
+			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		log.info("[END][delete]");
+		return response;
+	}
 }
