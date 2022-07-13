@@ -22,6 +22,7 @@ import com.bci.prueba.tecnica.pruebatecnica.domain.request.UserRQ;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.ProcessRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserListRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserRS;
+import com.bci.prueba.tecnica.pruebatecnica.exceptions.UserException;
 import com.bci.prueba.tecnica.pruebatecnica.service.UserService;
 import com.bci.prueba.tecnica.pruebatecnica.utils.Constant;
 
@@ -43,9 +44,10 @@ public class UserController {
 		try {
 			userListRS = userSvc.getAll();
 			response = new ResponseEntity<>(userListRS, HttpStatus.OK);
+		
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			userListRS = new UserListRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
+			userListRS = new UserListRS(Constant.ERROR_INTERNO_DEFAULT);
 			response = new ResponseEntity<>(userListRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][getAll]");
@@ -60,11 +62,11 @@ public class UserController {
 		ResponseEntity<UserRS> response = null;
 		UserRS userRS = null;
 		try {
-			userRS = userSvc.getByEmail();
+			userRS = userSvc.getByEmail(email);
 			response = new ResponseEntity<>(userRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			userRS = new UserRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
+			userRS = new UserRS(Constant.ERROR_INTERNO_DEFAULT);
 			response = new ResponseEntity<>(userRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][getByEmail]");
@@ -79,11 +81,15 @@ public class UserController {
 		ResponseEntity<ProcessRS> response = null;
 		ProcessRS processRS = null;
 		try {
-			processRS = userSvc.save();
+			processRS = userSvc.save(rq);
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
+		}catch (UserException e) {
+			log.error(e.getMessage());
+			processRS = new ProcessRS(e.getMessage());
+			response = new ResponseEntity<>(processRS, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_DEFAULT);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][save]");
@@ -98,11 +104,11 @@ public class UserController {
 		ResponseEntity<ProcessRS> response = null;
 		ProcessRS processRS = null;
 		try {
-			processRS = userSvc.delete();
+			processRS = userSvc.delete(email);
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_DEFAULT);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][delete]");
@@ -117,11 +123,11 @@ public class UserController {
 		ResponseEntity<ProcessRS> response = null;
 		ProcessRS processRS = null;
 		try {
-			processRS = userSvc.update();
+			processRS = userSvc.update(rq);
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_DEFAULT);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][update]");
