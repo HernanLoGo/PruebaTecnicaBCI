@@ -6,11 +6,12 @@ import java.util.List;
 public class UserRS implements Serializable {
 
 	private static final long serialVersionUID = -278740314355649034L;
-	
+
 	private String name;
 	private String email;
 	private String password;
 	private List<PhoneRS> phones;
+	private String mensaje;
 
 	public String getName() {
 		return name;
@@ -44,9 +45,18 @@ public class UserRS implements Serializable {
 		this.phones = phones;
 	}
 
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
 	@Override
 	public String toString() {
-		return "UserRQ [name=" + name + ", email=" + email + ", password=" + password + ", phones=" + phones + "]";
+		return "UserRS [name=" + name + ", email=" + email + ", password=" + password + ", phones=" + phones
+				+ ", mensaje=" + mensaje + "]";
 	}
 
 }
