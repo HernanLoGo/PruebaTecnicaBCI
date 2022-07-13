@@ -14,6 +14,15 @@ public class UserListRS implements Serializable {
 	private List<UserRS> users;
 	private String mensaje;
 
+	public UserListRS() {
+		super();
+	}
+
+	public UserListRS(String mensaje) {
+		super();
+		this.mensaje = mensaje;
+	}
+
 	public List<UserRS> getUsers() {
 		return users;
 	}

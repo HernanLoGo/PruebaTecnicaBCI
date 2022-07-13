@@ -1,13 +1,11 @@
 package com.bci.prueba.tecnica.pruebatecnica.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,28 +22,30 @@ import com.bci.prueba.tecnica.pruebatecnica.domain.request.UserRQ;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.ProcessRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserListRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserRS;
+import com.bci.prueba.tecnica.pruebatecnica.service.UserService;
+import com.bci.prueba.tecnica.pruebatecnica.utils.Constant;
 
 @RestController
 @RequestMapping("/usuario")
-public class User {
+public class UserController {
 
-	private static final Logger log = LoggerFactory.getLogger(User.class);
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
+	@Autowired
+	private UserService userSvc;
 
 	@GetMapping(value = "/get-all", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<UserListRS> getAll() {
 		log.info("[INIT][getAll]");
 
 		ResponseEntity<UserListRS> response = null;
-		UserListRS userListRS = new UserListRS();
+		UserListRS userListRS = null;
 		try {
-			List<UserRS> userList = new ArrayList<>();
-			userList.add(new UserRS());
-			userList.add(new UserRS());
-			userListRS.setUsers(userList);
+			userListRS = userSvc.getAll();
 			response = new ResponseEntity<>(userListRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			userListRS.setMensaje("Error interno, intente más tarde");
+			userListRS = new UserListRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
 			response = new ResponseEntity<>(userListRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][getAll]");
@@ -58,13 +58,13 @@ public class User {
 		log.info("[PARAMS] " + email);
 
 		ResponseEntity<UserRS> response = null;
-		UserRS userRS = new UserRS();
+		UserRS userRS = null;
 		try {
-
+			userRS = userSvc.getByEmail();
 			response = new ResponseEntity<>(userRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			userRS.setMensaje("Error interno, intente más tarde");
+			userRS = new UserRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
 			response = new ResponseEntity<>(userRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][getByEmail]");
@@ -77,13 +77,13 @@ public class User {
 		log.info("[PARAMS] " + rq);
 
 		ResponseEntity<ProcessRS> response = null;
-		ProcessRS processRS = new ProcessRS();
+		ProcessRS processRS = null;
 		try {
-
+			processRS = userSvc.save();
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS.setMensaje("Error interno, intente más tarde");
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][save]");
@@ -96,13 +96,13 @@ public class User {
 		log.info("[PARAMS] " + email);
 
 		ResponseEntity<ProcessRS> response = null;
-		ProcessRS processRS = new ProcessRS();
+		ProcessRS processRS = null;
 		try {
-
+			processRS = userSvc.delete();
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS.setMensaje("Error interno, intente más tarde");
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][delete]");
@@ -115,13 +115,13 @@ public class User {
 		log.info("[PARAMS] " + rq);
 
 		ResponseEntity<ProcessRS> response = null;
-		ProcessRS processRS = new ProcessRS();
+		ProcessRS processRS = null;
 		try {
-
+			processRS = userSvc.update();
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			processRS.setMensaje("Error interno, intente más tarde");
+			processRS = new ProcessRS(Constant.ERROR_INTERNO_INTENTE_MÁS_TARDE);
 			response = new ResponseEntity<>(processRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][update]");

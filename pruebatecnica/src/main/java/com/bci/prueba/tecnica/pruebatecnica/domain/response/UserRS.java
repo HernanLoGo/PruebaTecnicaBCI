@@ -13,6 +13,15 @@ public class UserRS implements Serializable {
 	private List<PhoneRS> phones;
 	private String mensaje;
 
+	public UserRS() {
+		super();
+	}
+
+	public UserRS(String mensaje) {
+		super();
+		this.mensaje = mensaje;
+	}
+
 	public String getName() {
 		return name;
 	}

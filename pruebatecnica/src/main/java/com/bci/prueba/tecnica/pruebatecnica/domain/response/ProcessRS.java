@@ -13,25 +13,33 @@ public class ProcessRS implements Serializable {
 
 	@JsonProperty("id")
 	private String id;
-	
+
 	@JsonProperty("created")
 	private String created;
-	
+
 	@JsonProperty("modified")
 	private String modified;
-	
+
 	@JsonProperty("last_login")
 	private String lastlogin;
-	
+
 	@JsonProperty("token")
 	private String token;
-	
+
 	@JsonProperty("isActive")
 	private String isActive;
-	
+
 	@JsonProperty("mensaje")
 	private String mensaje;
-//	private MessageRS mensaje;
+
+	public ProcessRS() {
+		super();
+	}
+
+	public ProcessRS(String mensaje) {
+		super();
+		this.mensaje = mensaje;
+	}
 
 	public String getId() {
 		return id;
