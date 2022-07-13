@@ -30,7 +30,8 @@ public class ProcessRS implements Serializable {
 	private String isActive;
 	
 	@JsonProperty("mensaje")
-	private MessageRS mensaje;
+	private String mensaje;
+//	private MessageRS mensaje;
 
 	public String getId() {
 		return id;
@@ -80,11 +81,11 @@ public class ProcessRS implements Serializable {
 		this.isActive = isActive;
 	}
 
-	public MessageRS getMensaje() {
+	public String getMensaje() {
 		return mensaje;
 	}
 
-	public void setMensaje(MessageRS mensaje) {
+	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
