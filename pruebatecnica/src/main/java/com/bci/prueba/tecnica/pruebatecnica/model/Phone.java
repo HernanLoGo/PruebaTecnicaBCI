@@ -23,8 +23,8 @@ public class Phone implements Serializable {
 	@Column(name = "citycode", length = 5, nullable = false)
 	private Integer citycode;
 
-	@Column(name = "countycode", length = 8, nullable = false)
-	private Integer countycode;
+	@Column(name = "contrycode", length = 8, nullable = false)
+	private Integer contrycode;
 
 	@ManyToOne
 	@JoinColumn(name = "id", nullable = false)
@@ -54,12 +54,12 @@ public class Phone implements Serializable {
 		this.citycode = citycode;
 	}
 
-	public Integer getCountycode() {
-		return countycode;
+	public Integer getContrycode() {
+		return contrycode;
 	}
 
-	public void setCountycode(Integer countycode) {
-		this.countycode = countycode;
+	public void setContrycode(Integer contrycode) {
+		this.contrycode = contrycode;
 	}
 
 	public User getUser() {
@@ -72,7 +72,7 @@ public class Phone implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Phone [id=" + id + ", number=" + number + ", citycode=" + citycode + ", countycode=" + countycode
+		return "Phone [id=" + id + ", number=" + number + ", citycode=" + citycode + ", contrycode=" + contrycode
 				+ ", user=" + user + "]";
 	}
 
