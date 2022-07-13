@@ -11,7 +11,7 @@ public final class Validations {
 	private static final Logger log = LoggerFactory.getLogger(Validations.class);
 
 	private Validations() {
-		log.info("Constantes Creadas");
+		log.info("Validations");
 	}
 
 	public static final boolean isValidEmail(String email) {

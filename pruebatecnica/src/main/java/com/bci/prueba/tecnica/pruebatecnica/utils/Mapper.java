@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import com.bci.prueba.tecnica.pruebatecnica.domain.request.PhoneRQ;
 import com.bci.prueba.tecnica.pruebatecnica.domain.request.UserRQ;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.PhoneRS;
+import com.bci.prueba.tecnica.pruebatecnica.domain.response.ProcessRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserListRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserRS;
+import com.bci.prueba.tecnica.pruebatecnica.model.Details;
 import com.bci.prueba.tecnica.pruebatecnica.model.Phone;
 import com.bci.prueba.tecnica.pruebatecnica.model.User;
 
@@ -19,7 +21,7 @@ public final class Mapper {
 	private static final Logger log = LoggerFactory.getLogger(Mapper.class);
 
 	private Mapper() {
-		log.info("Constantes Creadas");
+		log.info("Mapper");
 	}
 
 	public static User userRsToModel(UserRQ rq) {
@@ -77,11 +79,30 @@ public final class Mapper {
 
 	public static PhoneRS phoneModelToRs(Phone phone) {
 		PhoneRS phoneRS = new PhoneRS();
-		
+
 		phoneRS.setCityCode(phone.getCitycode());
 		phoneRS.setContrycode(phone.getContrycode());
 		phoneRS.setNumber(phone.getNumber());
-		
+
 		return phoneRS;
+	}
+
+	public static ProcessRS detailsModelToProcess(Details details) {
+		ProcessRS processRS = new ProcessRS();
+
+		processRS.setId(String.valueOf(details.getUser().getIdUser()));
+		processRS.setCreated(details.getCreated() != null
+				? DateUtils.localDateTimeToString(details.getCreated(), Constant.YYYY_MM_DD_HH_MM_SS)
+				: "");
+		processRS.setModified(details.getModified() != null
+				? DateUtils.localDateTimeToString(details.getModified(), Constant.YYYY_MM_DD_HH_MM_SS)
+				: "");
+		processRS.setLastlogin(details.getLastLogin() != null
+				? DateUtils.localDateTimeToString(details.getLastLogin(), Constant.YYYY_MM_DD_HH_MM_SS)
+				: "");
+		processRS.setToken(null);
+		processRS.setIsActive(String.valueOf(details.isActive()));
+
+		return processRS;
 	}
 }

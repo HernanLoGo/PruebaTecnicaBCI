@@ -20,16 +20,16 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.Persistent;
 
-//@Entity
-//@Persistent
-//@Table(name = "User")
-public class Properties implements Serializable {
+@Entity
+@Persistent
+@Table(name = "Properties")
+public class Details implements Serializable {
 
 	private static final long serialVersionUID = 6464250997724598471L;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idContacto;
+	@Id
+	@GeneratedValue
+	private Long idDetails;
 
 	private LocalDateTime created;
 
@@ -39,17 +39,16 @@ public class Properties implements Serializable {
 
 	private boolean isActive;
 
-//	@Column(name = "name", nullable = false)
-//	@OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idUser")
 	private User user;
 
-	public Integer getIdContacto() {
-		return idContacto;
+	public Long getIdDetails() {
+		return idDetails;
 	}
 
-	public void setIdContacto(Integer idContacto) {
-		this.idContacto = idContacto;
+	public void setIdDetails(Long idDetails) {
+		this.idDetails = idDetails;
 	}
 
 	public LocalDateTime getCreated() {
@@ -94,8 +93,8 @@ public class Properties implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Properties [idContacto=" + idContacto + ", created=" + created + ", modified=" + modified
-				+ ", lastLogin=" + lastLogin + ", isActive=" + isActive + ", user=" + user + "]";
+		return "Details [idDetails=" + idDetails + ", created=" + created + ", modified=" + modified + ", lastLogin="
+				+ lastLogin + ", isActive=" + isActive + ", user=" + user + "]";
 	}
 
 }

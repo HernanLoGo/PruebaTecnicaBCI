@@ -1,5 +1,7 @@
 package com.bci.prueba.tecnica.pruebatecnica.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import com.bci.prueba.tecnica.pruebatecnica.domain.response.ProcessRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserListRS;
 import com.bci.prueba.tecnica.pruebatecnica.domain.response.UserRS;
 import com.bci.prueba.tecnica.pruebatecnica.exceptions.UserException;
+import com.bci.prueba.tecnica.pruebatecnica.model.Details;
 import com.bci.prueba.tecnica.pruebatecnica.model.Phone;
 import com.bci.prueba.tecnica.pruebatecnica.model.User;
 import com.bci.prueba.tecnica.pruebatecnica.repository.UserRepository;
@@ -63,7 +66,6 @@ public class UserImpl implements UserService {
 
 		// TODO: validar si existe correo electronico en db
 
-		System.out.println("passworPattern: " + passworPattern);
 		if (!Validations.isValidEmail(userRq.getEmail())) {
 			log.error("Correo no valido");
 			throw new UserException("Correo Eléctronico no válido");
@@ -75,9 +77,20 @@ public class UserImpl implements UserService {
 					"Password ingresada debe ser de minismos 8 caracteres y contener letras mayusculas, minusculas, numeros y simbolos");
 		}
 
-		User user = userRepo.save(Mapper.userRsToModel(userRq));
+		User userToSave = Mapper.userRsToModel(userRq);
+		
+		LocalDateTime currentDate = LocalDateTime.now();
+		Details details = new Details();
+		details.setActive(Boolean.TRUE);
+		details.setCreated(currentDate);
+		details.setLastLogin(currentDate);
+		details.setModified(null);
+		details.setUser(userToSave);
+		
+		userToSave.setDetails(details);
+		User user = userRepo.save(userToSave);
 
-		return processRS;
+		return Mapper.detailsModelToProcess(user.getDetails());
 	}
 
 	@Override

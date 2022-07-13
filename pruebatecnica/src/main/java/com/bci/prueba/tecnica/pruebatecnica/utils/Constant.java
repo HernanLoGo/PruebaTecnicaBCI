@@ -11,6 +11,8 @@ public final class Constant {
 
 	public static final String EMAIL_PATTERN = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     
+	public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+	
 	private Constant() {
 		log.info("Constantes Creadas");
 	}

@@ -50,9 +50,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private List<Phone> phones;
 
-//	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id")
-//	private Properties properties;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id")
+	private Details details;
 
 //	public UUID getId() {
 //		return id;
@@ -102,18 +102,18 @@ public class User implements Serializable {
 		this.phones = phones;
 	}
 
-//	public Properties getProperties() {
-//		return properties;
-//	}
-//
-//	public void setProperties(Properties properties) {
-//		this.properties = properties;
-//	}
+	public Details getDetails() {
+		return details;
+	}
 
-//	@Override
-//	public String toString() {
-//		return "User [idUser=" + idUser + ", name=" + name + ", email=" + email + ", password=" + password + ", phones="
-//				+ phones + "]";
-//	}
+	public void setDetails(Details details) {
+		this.details = details;
+	}
+
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", name=" + name + ", email=" + email + ", password=" + password + ", phones="
+				+ phones + ", details=" + details + "]";
+	}
 
 }
