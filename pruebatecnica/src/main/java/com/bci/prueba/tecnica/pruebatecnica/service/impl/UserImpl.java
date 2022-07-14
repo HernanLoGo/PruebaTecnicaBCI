@@ -81,7 +81,7 @@ public class UserImpl implements UserService {
 
 		User user = userRepo.save(userToSave);
 
-		return Mapper.detailsModelToProcess(user.getDetails(),  "Usuario actualizado con exito");
+		return Mapper.detailsModelToProcess(user.getDetails(),  "Usuario guardado con exito");
 	}
 
 	@Override
