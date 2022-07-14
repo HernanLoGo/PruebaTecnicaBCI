@@ -1,7 +1,5 @@
 package com.bci.prueba.tecnica.pruebatecnica.controller;
 
-import java.util.UUID;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -129,14 +127,14 @@ public class UserController {
 	}
 
 	@DeleteMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ProcessRS> delete(@NotNull @NotBlank @RequestParam String email) {
+	public ResponseEntity<ProcessRS> delete(@NotNull @NotBlank @RequestParam String id) {
 		log.info("[INIT][delete]");
-		log.info("[PARAMS] " + email);
+		log.info("[PARAMS] " + id);
 
 		ResponseEntity<ProcessRS> response = null;
 		ProcessRS processRS = null;
 		try {
-			processRS = userSvc.delete(email);
+			processRS = userSvc.delete(id);
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e.getMessage());

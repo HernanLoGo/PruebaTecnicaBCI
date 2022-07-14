@@ -85,9 +85,13 @@ public class UserImpl implements UserService {
 	}
 
 	@Override
-	public ProcessRS delete(String email) {
-		ProcessRS processRS = new ProcessRS();
-		return processRS;
+	public ProcessRS delete(String id) throws UserException {
+		
+		User userToDelete = getUserById(id).get();
+		
+		userToDelete.getDetails().setActive(Boolean.FALSE);
+
+		return Mapper.detailsModelToProcess(userToDelete.getDetails(), "Usuario eliminado con exito");
 	}
 
 	@Override

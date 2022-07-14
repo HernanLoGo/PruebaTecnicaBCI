@@ -16,7 +16,7 @@ public interface UserService {
 
 	ProcessRS save(UserRQ userRq) throws UserException;
 
-	ProcessRS delete(String email);
+	ProcessRS delete(String id) throws UserException;
 
 	ProcessRS update(UserRQ userRq) throws UserException;
 
