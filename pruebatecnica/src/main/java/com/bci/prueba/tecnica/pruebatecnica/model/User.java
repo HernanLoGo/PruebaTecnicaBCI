@@ -9,14 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.Persistent;
 
@@ -27,46 +26,33 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 2441410364316776279L;
 
-//	@Id
-//	@GeneratedValue(generator = "UUID")
-//	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-//	@ColumnDefault("random_uuid()")
-//	@Type(type = "uuid-char")
-//	private UUID id;
-
 	@Id
-	@GeneratedValue
-	private Long idUser;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idUser", updatable = false, nullable = false, unique = true)
+	@Type(type = "uuid-char")
+	private UUID idUser;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Phone> phones;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id")
 	private Details details;
 
-//	public UUID getId() {
-//		return id;
-//	}
-//
-//	public void setId(UUID id) {
-//		this.id = id;
-//	}
-
-	public Long getIdUser() {
+	public UUID getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(Long idUser) {
+	public void setIdUser(UUID idUser) {
 		this.idUser = idUser;
 	}
 

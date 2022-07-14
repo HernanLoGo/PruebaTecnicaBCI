@@ -1,5 +1,7 @@
 package com.bci.prueba.tecnica.pruebatecnica.controller;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -57,7 +59,7 @@ public class UserController {
 		return response;
 	}
 
-	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/get-by-email",produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<UserRS> getByEmail(@NotNull @NotBlank @RequestParam String email) {
 		log.info("[INIT][getByEmail]");
 		log.info("[PARAMS] " + email);
@@ -77,6 +79,29 @@ public class UserController {
 			response = new ResponseEntity<>(userRS, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		log.info("[END][getByEmail]");
+		return response;
+	}
+	
+	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserRS> getById(@NotNull @NotBlank @RequestParam String id) {
+		log.info("[INIT][getById]");
+		log.info("[PARAMS] " + id);
+
+		ResponseEntity<UserRS> response = null;
+		UserRS userRS = null;
+		try {
+			userRS = userSvc.getById(id);
+			response = new ResponseEntity<>(userRS, HttpStatus.OK);
+		}catch (UserException e) {
+			log.error(e.getMessage());
+			userRS = new UserRS(e.getMessage());
+			response = new ResponseEntity<>(userRS, HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			userRS = new UserRS(Constant.ERROR_INTERNO_DEFAULT);
+			response = new ResponseEntity<>(userRS, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		log.info("[END][getById]");
 		return response;
 	}
 
@@ -132,6 +157,10 @@ public class UserController {
 		try {
 			processRS = userSvc.update(rq);
 			response = new ResponseEntity<>(processRS, HttpStatus.OK);
+		}catch (UserException e) {
+			log.error(e.getMessage());
+			processRS = new ProcessRS(e.getMessage());
+			response = new ResponseEntity<>(processRS, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			processRS = new ProcessRS(Constant.ERROR_INTERNO_DEFAULT);

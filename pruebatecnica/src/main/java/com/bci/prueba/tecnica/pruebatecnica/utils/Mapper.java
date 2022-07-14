@@ -62,6 +62,7 @@ public final class Mapper {
 
 	public static UserRS userModelToRS(User user) {
 		UserRS userRS = new UserRS();
+		userRS.setId(user.getIdUser().toString());
 		userRS.setEmail(user.getEmail());
 		userRS.setName(user.getName());
 		userRS.setPassword(user.getPassword());
@@ -87,7 +88,7 @@ public final class Mapper {
 		return phoneRS;
 	}
 
-	public static ProcessRS detailsModelToProcess(Details details) {
+	public static ProcessRS detailsModelToProcess(Details details, String mensaje) {
 		ProcessRS processRS = new ProcessRS();
 
 		processRS.setId(String.valueOf(details.getUser().getIdUser()));
@@ -102,6 +103,7 @@ public final class Mapper {
 				: "");
 		processRS.setToken(null);
 		processRS.setIsActive(String.valueOf(details.isActive()));
+		processRS.setMensaje(mensaje);
 
 		return processRS;
 	}

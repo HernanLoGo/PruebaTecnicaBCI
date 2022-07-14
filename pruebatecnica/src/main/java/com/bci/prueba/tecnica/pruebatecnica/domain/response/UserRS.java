@@ -11,6 +11,7 @@ public class UserRS implements Serializable {
 
 	private static final long serialVersionUID = -278740314355649034L;
 
+	private String id;
 	private String name;
 	private String email;
 	private String password;
@@ -24,6 +25,14 @@ public class UserRS implements Serializable {
 	public UserRS(String mensaje) {
 		super();
 		this.mensaje = mensaje;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -68,8 +77,8 @@ public class UserRS implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserRS [name=" + name + ", email=" + email + ", password=" + password + ", phones=" + phones
-				+ ", mensaje=" + mensaje + "]";
+		return "UserRS [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phones="
+				+ phones + ", mensaje=" + mensaje + "]";
 	}
 
 }

@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -28,8 +30,10 @@ public class Details implements Serializable {
 	private static final long serialVersionUID = 6464250997724598471L;
 
 	@Id
-	@GeneratedValue
-	private Long idDetails;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idDetails", updatable = false, nullable = false, unique = true)
+	@Type(type = "uuid-char")
+	private UUID idDetails;
 
 	private LocalDateTime created;
 
@@ -39,15 +43,15 @@ public class Details implements Serializable {
 
 	private boolean isActive;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "idUser")
 	private User user;
 
-	public Long getIdDetails() {
+	public UUID getIdDetails() {
 		return idDetails;
 	}
 
-	public void setIdDetails(Long idDetails) {
+	public void setIdDetails(UUID idDetails) {
 		this.idDetails = idDetails;
 	}
 
@@ -94,7 +98,10 @@ public class Details implements Serializable {
 	@Override
 	public String toString() {
 		return "Details [idDetails=" + idDetails + ", created=" + created + ", modified=" + modified + ", lastLogin="
-				+ lastLogin + ", isActive=" + isActive + ", user=" + user + "]";
+				+ lastLogin + ", isActive=" + isActive + ", user=" + user + ", getIdDetails()=" + getIdDetails()
+				+ ", getCreated()=" + getCreated() + ", getModified()=" + getModified() + ", getLastLogin()="
+				+ getLastLogin() + ", isActive()=" + isActive() + ", getUser()=" + getUser() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

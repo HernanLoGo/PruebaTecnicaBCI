@@ -12,10 +12,12 @@ public interface UserService {
 
 	UserRS getByEmail(String email) throws UserException;
 
+	UserRS getById(String id) throws UserException;
+
 	ProcessRS save(UserRQ userRq) throws UserException;
 
 	ProcessRS delete(String email);
 
-	ProcessRS update(UserRQ userRq);
+	ProcessRS update(UserRQ userRq) throws UserException;
 
 }

@@ -1,6 +1,5 @@
 package com.bci.prueba.tecnica.pruebatecnica.domain.request;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,17 +9,28 @@ public class UserRQ implements Serializable {
 
 	private static final long serialVersionUID = -5407129093485289298L;
 
+	@JsonProperty("id")
+	private String id;
+
 	@JsonProperty("name")
 	private String name;
-	
+
 	@JsonProperty("email")
 	private String email;
-	
+
 	@JsonProperty("password")
 	private String password;
-	
+
 	@JsonProperty("phones")
 	private List<PhoneRQ> phones;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -56,7 +66,8 @@ public class UserRQ implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserRQ [name=" + name + ", email=" + email + ", password=" + password + ", phones=" + phones + "]";
+		return "UserRQ [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phones="
+				+ phones + "]";
 	}
 
 }

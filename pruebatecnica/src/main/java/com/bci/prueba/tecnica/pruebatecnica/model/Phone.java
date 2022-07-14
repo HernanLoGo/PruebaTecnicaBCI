@@ -1,9 +1,12 @@
 package com.bci.prueba.tecnica.pruebatecnica.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.Persistent;
 
 @Entity
@@ -21,8 +25,10 @@ public class Phone implements Serializable {
 	private static final long serialVersionUID = -7145926978638849317L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPhone;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idPhone", updatable = false, nullable = false, unique = true)
+	@Type(type = "uuid-char")
+	private UUID idPhone;
 
 	@Column(name = "number", length = 11, nullable = false)
 	private String number;
@@ -33,15 +39,15 @@ public class Phone implements Serializable {
 	@Column(name = "contrycode", length = 8, nullable = false)
 	private String contrycode;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "idUser")
 	private User user;
 
-	public Long getIdPhone() {
+	public UUID getIdPhone() {
 		return idPhone;
 	}
 
-	public void setIdPhone(Long idPhone) {
+	public void setIdPhone(UUID idPhone) {
 		this.idPhone = idPhone;
 	}
 
@@ -77,6 +83,10 @@ public class Phone implements Serializable {
 		this.user = user;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Phone [number=" + number + ", citycode=" + citycode + ", contrycode=" + contrycode + ", user=" + user
+				+ "]";
+	}
 
 }

@@ -1,13 +1,12 @@
 package com.bci.prueba.tecnica.pruebatecnica.repository;
 
-import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
 
 import com.bci.prueba.tecnica.pruebatecnica.model.Details;
-import com.bci.prueba.tecnica.pruebatecnica.model.User;
 
-public interface DetailsRepository extends CrudRepository<Details, Long>{
+public interface DetailsRepository extends CrudRepository<Details, UUID>{
 
 	
 }
